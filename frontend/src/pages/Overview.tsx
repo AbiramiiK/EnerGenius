@@ -86,7 +86,7 @@ export default function Overview() {
         </Card>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 items-start">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         <MetricCard
           label="Energy Cost" value={summary ? summary.total_cost.toFixed(2) : "—"}
           unavailable={!summary} statusTag="Simulated"
@@ -107,43 +107,46 @@ export default function Overview() {
           label="Grid Dependency" value={summary ? (100 - summary.renewable_share * 100).toFixed(0) : "—"} unit="%" tone="text-grid"
           unavailable={!summary} statusTag="Simulated"
         />
-        <div className="col-span-2 md:col-span-1 xl:col-span-1 self-start">
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <Card className="p-3 lg:col-span-3">
+          <div className="flex items-center justify-between px-2 pt-1 pb-2">
+            <h2 className="text-sm font-semibold text-text-primary">Virtual Microgrid — Interactive Digital Twin</h2>
+            {(result?.data_labels?.solar_synthetic || result?.data_labels?.demand_synthetic) && (
+              <Badge tone="info">Synthetic input data for this run</Badge>
+            )}
+          </div>
+          <MicrogridCenterpiece
+            optimizedStep={step}
+            baselineStep={baselineStep}
+            site={site}
+            status={simStatus}
+            statusDetail={statusDetail}
+            dataLabels={result?.data_labels}
+            comparison={result?.comparison}
+            size="large"
+          />
+          {steps.length > 0 && (
+            <div className="mt-3 px-1">
+              <input
+                type="range" min={0} max={steps.length - 1} value={stepIdx}
+                onChange={(e) => setStepIdx(Number(e.target.value))}
+                className="w-full accent-emerald"
+              />
+              <div className="flex justify-between text-xs text-text-secondary mt-1">
+                <span>{steps[0]?.timestamp}</span>
+                <span className="font-medium text-text-primary">{step?.timestamp}</span>
+                <span>{steps[steps.length - 1]?.timestamp}</span>
+              </div>
+            </div>
+          )}
+        </Card>
+
+        <div className="lg:col-span-1">
           <AIRecommendationCard recommendation={result?.recommendations?.[0] ?? null} />
         </div>
       </div>
-
-      <Card className="p-3">
-        <div className="flex items-center justify-between px-2 pt-1 pb-2">
-          <h2 className="text-sm font-semibold text-text-primary">Virtual Microgrid — Interactive Digital Twin</h2>
-          {(result?.data_labels?.solar_synthetic || result?.data_labels?.demand_synthetic) && (
-            <Badge tone="info">Synthetic input data for this run</Badge>
-          )}
-        </div>
-        <MicrogridCenterpiece
-          optimizedStep={step}
-          baselineStep={baselineStep}
-          site={site}
-          status={simStatus}
-          statusDetail={statusDetail}
-          dataLabels={result?.data_labels}
-          comparison={result?.comparison}
-          size="large"
-        />
-        {steps.length > 0 && (
-          <div className="mt-3 px-1">
-            <input
-              type="range" min={0} max={steps.length - 1} value={stepIdx}
-              onChange={(e) => setStepIdx(Number(e.target.value))}
-              className="w-full accent-emerald"
-            />
-            <div className="flex justify-between text-xs text-text-secondary mt-1">
-              <span>{steps[0]?.timestamp}</span>
-              <span className="font-medium text-text-primary">{step?.timestamp}</span>
-              <span>{steps[steps.length - 1]?.timestamp}</span>
-            </div>
-          </div>
-        )}
-      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2">
