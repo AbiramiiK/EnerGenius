@@ -86,7 +86,7 @@ export default function Overview() {
         </Card>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 items-start">
         <MetricCard
           label="Energy Cost" value={summary ? summary.total_cost.toFixed(2) : "—"}
           unavailable={!summary} statusTag="Simulated"
@@ -107,7 +107,7 @@ export default function Overview() {
           label="Grid Dependency" value={summary ? (100 - summary.renewable_share * 100).toFixed(0) : "—"} unit="%" tone="text-grid"
           unavailable={!summary} statusTag="Simulated"
         />
-        <div className="col-span-2 md:col-span-1 xl:col-span-1">
+        <div className="col-span-2 md:col-span-1 xl:col-span-1 self-start">
           <AIRecommendationCard recommendation={result?.recommendations?.[0] ?? null} />
         </div>
       </div>
