@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Foundation: premium light control-room surfaces */
+  --color-canvas: #F7F9F8;
+  --color-surface: #FFFFFF;
+  --color-forest: #FFFFFF;
+  --color-sage: #DDE6E2;
+  --color-mint: #DFF7EC;
+
+  /* Brand + energy accents */
+  --color-emerald: #10B981;
+  --color-emerald-dark: #047857;
+  --color-solar: #F59E0B;
+  --color-battery: #8B5CF6;
+  --color-grid: #3B82F6;
+  --color-warning: #F97316;
+  --color-danger: #EF4444;
+
+  /* Text */
+  --color-text-primary: #17211D;
+  --color-text-secondary: #66736D;
+}
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  * {
+    border-color: var(--color-sage);
+  }
+  ::selection {
+    background-color: rgba(16, 185, 129, 0.25);
+  }
+  input, select, textarea {
+    color-scheme: light;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #C7D3CE;
+    border-radius: 999px;
+  }
+  .glow-emerald {
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.2), 0 4px 14px -4px rgba(16, 185, 129, 0.35);
+  }
+  .panel-inset {
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
