@@ -29,7 +29,7 @@ function Gate({ children }: { children: React.ReactNode }) {
         <div className="max-w-md text-center">
           <h2 className="text-lg font-semibold text-danger">Backend unreachable</h2>
           <p className="text-sm text-text-secondary mt-2">
-            EnerGenius could not reach the API at http://127.0.0.1:8000. Make sure the FastAPI backend is running, then refresh.
+            EnerGenius could not reach the backend API. Please check the backend connection and refresh.
           </p>
         </div>
       </div>
